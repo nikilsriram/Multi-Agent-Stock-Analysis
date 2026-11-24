@@ -1,0 +1,101 @@
+architecture,stock,end_date,faithfulness,answer_relevancy,latency_sec,decision,actual_5d_pct,directional_correct
+Single-Agent,AAPL,2026-01-19,0.5,0.542,32.13,Hold,3.95,False
+Multi-Agent Supervisor,AAPL,2026-01-19,0.562,0.515,43.92,Sell,3.95,False
+Single-Agent,AAPL,2026-02-16,1.0,0.495,26.77,Hold,3.92,False
+Multi-Agent Supervisor,AAPL,2026-02-16,1.0,0.0,45.97,Hold,3.92,False
+Single-Agent,AAPL,2026-03-16,1.0,0.508,29.37,Hold,-0.08,True
+Multi-Agent Supervisor,AAPL,2026-03-16,0.733,0.507,44.44,Sell,-0.08,True
+Single-Agent,AAPL,2026-04-20,1.0,0.531,31.93,Hold,-1.05,True
+Multi-Agent Supervisor,AAPL,2026-04-20,0.706,0.534,43.93,Buy,-1.05,False
+Single-Agent,AAPL,2026-05-18,1.0,0.519,27.52,Hold,4.37,False
+Multi-Agent Supervisor,AAPL,2026-05-18,1.0,0.0,46.67,Hold,4.37,False
+Single-Agent,NVDA,2026-01-19,0.917,0.575,27.78,Hold,7.55,False
+Multi-Agent Supervisor,NVDA,2026-01-19,0.733,0.561,45.43,Sell,7.55,False
+Single-Agent,NVDA,2026-02-16,0.375,0.566,28.32,Hold,5.73,False
+Multi-Agent Supervisor,NVDA,2026-02-16,0.889,0.55,47.59,Sell,5.73,False
+Single-Agent,NVDA,2026-03-16,1.0,0.545,26.64,Hold,-2.48,False
+Multi-Agent Supervisor,NVDA,2026-03-16,0.842,0.0,47.36,Hold,-2.48,False
+Single-Agent,NVDA,2026-04-20,1.0,0.585,37.81,Hold,3.56,False
+Multi-Agent Supervisor,NVDA,2026-04-20,0.562,0.424,43.14,Buy,3.56,True
+Single-Agent,NVDA,2026-05-18,0.643,0.572,28.09,Hold,-4.37,False
+Multi-Agent Supervisor,NVDA,2026-05-18,0.733,0.498,44.0,Buy,-4.37,False
+Single-Agent,MSFT,2026-01-19,1.0,0.423,27.34,Hold,5.96,False
+Multi-Agent Supervisor,MSFT,2026-01-19,0.467,0.424,46.54,Sell,5.96,False
+Single-Agent,MSFT,2026-02-16,1.0,0.404,31.87,Hold,1.17,True
+Multi-Agent Supervisor,MSFT,2026-02-16,0.5,0.389,39.35,Hold,1.17,True
+Single-Agent,MSFT,2026-03-16,1.0,0.424,29.4,Hold,-7.23,False
+Multi-Agent Supervisor,MSFT,2026-03-16,1.0,0.424,43.58,Hold,-7.23,False
+Single-Agent,MSFT,2026-04-20,1.0,0.418,27.3,Hold,1.53,False
+Multi-Agent Supervisor,MSFT,2026-04-20,0.867,0.0,42.16,Hold,1.53,False
+Single-Agent,MSFT,2026-05-18,0.786,0.421,25.73,Hold,-2.36,False
+Multi-Agent Supervisor,MSFT,2026-05-18,0.571,0.0,38.4,Hold,-2.36,False
+Single-Agent,TSLA,2026-01-19,1.0,0.295,23.8,Hold,2.91,False
+Multi-Agent Supervisor,TSLA,2026-01-19,0.833,0.0,38.66,Hold,2.91,False
+Single-Agent,TSLA,2026-02-16,1.0,0.34,28.25,Hold,1.65,False
+Multi-Agent Supervisor,TSLA,2026-02-16,0.786,0.383,42.1,Hold,1.65,False
+Single-Agent,TSLA,2026-03-16,1.0,0.345,25.77,Hold,-2.43,False
+Multi-Agent Supervisor,TSLA,2026-03-16,0.467,0.355,42.31,Hold,-2.43,False
+Single-Agent,TSLA,2026-04-20,1.0,0.317,31.07,Hold,-5.02,False
+Multi-Agent Supervisor,TSLA,2026-04-20,0.727,0.298,38.01,Buy,-5.02,False
+Single-Agent,TSLA,2026-05-18,0.769,0.391,26.8,Hold,7.41,False
+Multi-Agent Supervisor,TSLA,2026-05-18,0.529,0.32,41.29,Hold,7.41,False
+Single-Agent,AMZN,2026-01-19,1.0,0.46,25.7,Hold,5.2,False
+Multi-Agent Supervisor,AMZN,2026-01-19,0.667,0.496,40.96,Hold,5.2,False
+Single-Agent,AMZN,2026-02-16,1.0,0.469,29.23,Hold,4.72,False
+Multi-Agent Supervisor,AMZN,2026-02-16,0.588,0.407,40.69,Sell,4.72,False
+Single-Agent,AMZN,2026-03-16,1.0,0.465,30.74,Hold,-0.01,True
+Multi-Agent Supervisor,AMZN,2026-03-16,0.933,0.492,42.36,Hold,-0.01,True
+Single-Agent,AMZN,2026-04-20,0.769,0.486,29.53,Hold,5.94,False
+Multi-Agent Supervisor,AMZN,2026-04-20,0.688,0.481,45.16,Buy,5.94,True
+Single-Agent,AMZN,2026-05-18,0.923,0.475,26.31,Hold,2.64,False
+Multi-Agent Supervisor,AMZN,2026-05-18,0.786,0.0,42.07,Hold,2.64,False
+Single-Agent,JPM,2026-01-19,1.0,0.44,27.9,Hold,-0.65,True
+Multi-Agent Supervisor,JPM,2026-01-19,0.5,0.49,40.35,Sell,-0.65,True
+Single-Agent,JPM,2026-02-16,1.0,0.413,26.46,Hold,-1.25,True
+Multi-Agent Supervisor,JPM,2026-02-16,0.812,0.49,44.56,Hold,-1.25,True
+Single-Agent,JPM,2026-03-16,0.923,0.455,29.54,Hold,3.24,False
+Multi-Agent Supervisor,JPM,2026-03-16,0.75,0.445,35.12,Hold,3.24,False
+Single-Agent,JPM,2026-04-20,1.0,0.414,25.39,Hold,-2.44,False
+Multi-Agent Supervisor,JPM,2026-04-20,0.692,0.427,41.7,Hold,-2.44,False
+Single-Agent,JPM,2026-05-18,1.0,0.46,24.43,Hold,-0.48,True
+Multi-Agent Supervisor,JPM,2026-05-18,0.962,0.439,47.57,Hold,-0.48,True
+Single-Agent,XOM,2026-01-19,0.333,0.591,27.76,Hold,5.46,False
+Multi-Agent Supervisor,XOM,2026-01-19,0.733,0.463,51.56,Hold,5.46,False
+Single-Agent,XOM,2026-02-16,1.0,0.465,30.23,Hold,1.96,False
+Multi-Agent Supervisor,XOM,2026-02-16,0.615,0.468,37.98,Hold,1.96,False
+Single-Agent,XOM,2026-03-16,0.933,0.493,26.72,Hold,3.84,False
+Multi-Agent Supervisor,XOM,2026-03-16,0.562,0.474,40.7,Hold,3.84,False
+Single-Agent,XOM,2026-04-20,1.0,0.591,25.29,Hold,4.73,False
+Multi-Agent Supervisor,XOM,2026-04-20,0.692,0.487,38.47,Sell,4.73,False
+Single-Agent,XOM,2026-05-18,0.933,0.58,26.4,Hold,-7.84,False
+Multi-Agent Supervisor,XOM,2026-05-18,0.667,0.485,41.96,Buy,-7.84,False
+Single-Agent,UNH,2026-01-19,1.0,0.44,30.09,Hold,-13.12,False
+Multi-Agent Supervisor,UNH,2026-01-19,0.9,0.255,42.12,Hold,-13.12,False
+Single-Agent,UNH,2026-02-16,1.0,0.426,28.13,Hold,-1.69,False
+Multi-Agent Supervisor,UNH,2026-02-16,0.905,0.23,43.72,Buy,-1.69,False
+Single-Agent,UNH,2026-03-16,1.0,0.446,28.99,Hold,-5.23,False
+Multi-Agent Supervisor,UNH,2026-03-16,0.8,0.355,42.55,Hold,-5.23,False
+Single-Agent,UNH,2026-04-20,0.333,0.398,26.53,Hold,14.61,False
+Multi-Agent Supervisor,UNH,2026-04-20,0.846,0.308,37.73,Buy,14.61,True
+Single-Agent,UNH,2026-05-18,0.692,0.409,29.59,Hold,-1.82,False
+Multi-Agent Supervisor,UNH,2026-05-18,0.909,0.32,39.72,Buy,-1.82,False
+Single-Agent,WMT,2026-01-19,1.0,0.354,29.91,Hold,-1.8,False
+Multi-Agent Supervisor,WMT,2026-01-19,0.867,0.283,42.6,Hold,-1.8,False
+Single-Agent,WMT,2026-02-16,0.733,0.316,29.35,Hold,-2.41,False
+Multi-Agent Supervisor,WMT,2026-02-16,0.467,0.35,43.81,Buy,-2.41,False
+Single-Agent,WMT,2026-03-16,1.0,0.233,29.32,Hold,-2.13,False
+Multi-Agent Supervisor,WMT,2026-03-16,0.733,0.275,46.56,Hold,-2.13,False
+Single-Agent,WMT,2026-04-20,0.714,0.338,27.29,Hold,0.07,True
+Multi-Agent Supervisor,WMT,2026-04-20,1.0,0.0,46.72,Hold,0.07,True
+Single-Agent,WMT,2026-05-18,1.0,0.335,27.18,Hold,-11.1,False
+Multi-Agent Supervisor,WMT,2026-05-18,1.0,0.0,52.19,Hold,-11.1,False
+Single-Agent,META,2026-01-19,1.0,0.354,26.71,Hold,10.69,False
+Multi-Agent Supervisor,META,2026-01-19,0.824,0.352,36.88,Sell,10.69,False
+Single-Agent,META,2026-02-16,0.929,0.443,30.8,Hold,2.25,False
+Multi-Agent Supervisor,META,2026-02-16,0.867,0.351,37.97,Sell,2.25,False
+Single-Agent,META,2026-03-16,1.0,0.375,31.79,Hold,-5.19,False
+Multi-Agent Supervisor,META,2026-03-16,0.786,0.35,43.17,Hold,-5.19,False
+Single-Agent,META,2026-04-20,1.0,0.387,26.92,Hold,-0.27,True
+Multi-Agent Supervisor,META,2026-04-20,0.75,0.359,42.09,Hold,-0.27,True
+Single-Agent,META,2026-05-18,1.0,0.37,28.66,Hold,3.93,False
+Multi-Agent Supervisor,META,2026-05-18,0.8,0.437,46.02,Hold,3.93,False

@@ -1,27 +1,20 @@
 import os
-import datetime
+import time
+import requests
 import yfinance as yf
 import finnhub
-from dotenv import load_dotenv
 import pandas as pd
+from dotenv import load_dotenv
 
 from eventregistry import EventRegistry, QueryArticlesIter, QueryItems
-from langchain.tools import tool
+from langchain_core.tools import tool
 from langchain.agents import create_agent
 from langchain_openrouter import ChatOpenRouter
-from ragas.dataset_schema import SingleTurnSample
-from ragas.embeddings import OpenAIEmbeddings
-from ragas import aevaluate
-
-from datasets import Dataset 
-from ragas.metrics.collections import AnswerRelevancy
-from ragas import evaluate
-
 
 from openai import AsyncOpenAI
 from ragas.llms import llm_factory
-from ragas.metrics.collections import Faithfulness
-
+from ragas.embeddings import OpenAIEmbeddings
+from ragas.metrics.collections import Faithfulness, AnswerRelevancy
 
 load_dotenv()
 
@@ -53,25 +46,22 @@ answer_scorer = AnswerRelevancy(
 )
 
 model = ChatOpenRouter(
-    model="openai/gpt-4o-mini"
+    model="openai/gpt-4o-mini",
+    api_key=openrouter_api_key,
+    temperature=0
 )
-
-
 
 
 @tool
 def get_news(stock: str, start_date: str, end_date: str) -> str:
-    """Runs news subagent and returns reasoning."""
-    
+    """Fetch news articles for a stock between start_date and end_date."""
     try:
         er = EventRegistry(apiKey=eventregistry_api_key)
-
         q = QueryArticlesIter(
             keywords=QueryItems.OR([stock]),
             dateStart=start_date,
             dateEnd=end_date
         )
-
         articles = []
         for art in q.execQuery(er, sortBy="date", maxItems=5):
             articles.append({
@@ -79,50 +69,35 @@ def get_news(stock: str, start_date: str, end_date: str) -> str:
                 "source": art.get("source"),
                 "date": art.get("date")
             })
-
         return str(articles)
-
     except Exception as e:
         return f"Error fetching news: {str(e)}"
 
 
-
-import time
-import requests
 @tool
 def get_social_media(stock: str, start_date: str, end_date: str) -> str:
-    """Runs social media subagent and returns reasoning"""
+    """Fetch historical analyst recommendation trends up to end_date."""
     for _ in range(3):
         try:
             data = finnhub_client.recommendation_trends(stock)
-            return str(data)
-
+            historical = [d for d in data if d.get("period", "9999-12-31") <= end_date]
+            return str(historical[:3])
         except requests.exceptions.ReadTimeout:
             time.sleep(2)
-
         except Exception as e:
             return f"Error fetching social data: {str(e)}"
-
     return "Error: Finnhub timeout"
+
 
 @tool
 def get_statistics(stock: str, start_date: str, end_date: str) -> str:
-    """Runs statistics subagent and returns reasoning."""
-    
+    """Fetch historical stock price data between start_date and end_date."""
     try:
         t = yf.Ticker(stock)
-
-        info = t.fast_info  
         hist = t.history(start=start_date, end=end_date)
-
-        return str({
-            "info": dict(info),
-            "history": hist.tail(10).to_dict()
-        })
-
+        return str({"history": hist.tail(10).to_dict()})
     except Exception as e:
         return f"Error fetching statistics: {str(e)}"
-
 
 
 news_agent = create_agent(
@@ -156,7 +131,6 @@ stats_agent = create_agent(
 )
 
 
-
 @tool(description="Run news agent and return reasoning.")
 def analyze_news(request: str) -> str:
     try:
@@ -186,9 +160,8 @@ def analyze_statistics(request: str) -> str:
             "messages": [{"role": "user", "content": request}]
         })
         return result["messages"][-1].content
-
     except Exception as e:
-        return f"Statistics agent failed :{str(e)}"
+        return f"Statistics agent failed: {str(e)}"
 
 
 supervisor = create_agent(
@@ -217,83 +190,33 @@ Final Explanation: ...
 )
 
 
+async def run_analysis(stock: str, start_date: str, end_date: str):
+    query = f"{stock} {start_date} {end_date}"
 
-async def run_analysis(stock, start_date, end_date):
-    try:
-        query = f"{stock} {start_date} {end_date}"
+    result = supervisor.invoke({
+        "messages": [{"role": "user", "content": query}]
+    })
 
-        result = supervisor.invoke({
-            "messages": [{"role": "user", "content": query}]
-        })
+    response = result["messages"][-1].content
+    retrieved_contexts = [
+        str(message.content) for message in result["messages"]
+        if getattr(message, "type", None) == "tool"
+    ]
 
-        agent = result["messages"][-1].content
-        response = result["messages"][-1].content
-
-        retrieved_contexts = []
-
-        for message in result["messages"]:
-            if getattr(message, "type", None) == "tool":
-                retrieved_contexts.append(str(message.content))
-
-        score = await scorer.ascore(
-            user_input=query,
-            response=response,
-            retrieved_contexts=retrieved_contexts
-        )       
-
-        print(f"RAGAS Faithfulness Score: {score.value:.2f}")
-
-        scoreTwo = await answer_scorer.ascore(
-            user_input=query,
-            response=response
-        )
-
-        print(f"RAGAS ANSWER RELEVANCY SCORE: {scoreTwo.value:.2f}")
-
-        return response
-
-    except Exception as e:
-        return f"System failed: {str(e)}"
-
-def simple_backtest(stock: str, end_date: str, days_forward: int = 5):
-
-    df = yf.download(
-        stock,
-        start=end_date,
-        end=pd.to_datetime(end_date) + pd.Timedelta(days=days_forward + 5),
-        progress=False
+    score = await scorer.ascore(
+        user_input=query,
+        response=response,
+        retrieved_contexts=retrieved_contexts
     )
 
-    if df is None or df.empty:
-        return {
-            "status": "error",
-            "message": "No data returned",
-            "data": []
-        }
-
-    close = df["Close"]
-
-    if isinstance(close, pd.DataFrame):
-        close = close.iloc[:, 0]
-
-    close = pd.to_numeric(close, errors="coerce").dropna()
-
-    if len(close) < 2:
-        return {
-            "status": "error",
-            "message": "Not enough data",
-            "data": []
-        }
-
-    start_price = float(close.iloc[0])
-    end_price = float(close.iloc[-1])
-
-    change_pct = ((end_price - start_price) / start_price) * 100
+    score_two = await answer_scorer.ascore(
+        user_input=query,
+        response=response
+    )
 
     return {
-        "status": "success",
-        "start_price": start_price,
-        "end_price": end_price,
-        "change_pct": round(change_pct, 2),
-        "data": close.tolist()
+        "response": response,
+        "faithfulness": round(score.value, 3),
+        "answer_relevancy": round(score_two.value, 3),
+        "contexts": retrieved_contexts
     }
